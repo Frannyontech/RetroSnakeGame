@@ -18,4 +18,11 @@ public class Snake {
         body.add(temp);
 
     }
+    public ArrayList<Rectangle> getBody() {
+        return body;
+    }
+
+    public void setBody(ArrayList<Rectangle> body) {
+        this.body = body;
+    }
 }
