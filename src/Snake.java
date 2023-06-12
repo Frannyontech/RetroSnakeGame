@@ -22,6 +22,40 @@ public class Snake {
         move = "Nothing";
 
     }
+    public void move(){
+        if (move != "Nothing") {
+            Rectangle first = body.get(0);
+            Rectangle temp = new Rectangle(Game.dimensions, Game.dimensions);
+            
+            if(move == "Up") {
+                temp.setLocation(first.x, first.y - Game.dimensions);
+            } else if(move == "Down") {
+                temp.setLocation(first.x, first.y + Game.dimensions);
+            } else if(move == "Left") {
+                temp.setLocation(first.x - Game.dimensions, first.y);
+            } else {
+                temp.setLocation(first.x + Game.dimensions, first.y);
+            }
+            body.add(0,temp);
+            body.remove(body.size()-1);
+        }
+    }
+
+    public void grow(){
+        Rectangle first = body.get(0);
+        Rectangle temp = new Rectangle(Game.dimensions, Game.dimensions);
+
+        if(move == "Up") {
+            temp.setLocation(first.x, first.y - Game.dimensions);
+        } else if(move == "Down") {
+            temp.setLocation(first.x, first.y + Game.dimensions);
+        } else if(move == "Left") {
+            temp.setLocation(first.x - Game.dimensions, first.y);
+        } else {
+            temp.setLocation(first.x + Game.dimensions, first.y);
+        }
+        body.add(0,temp);
+    }
     public ArrayList<Rectangle> getBody() {
         return body;
     }
