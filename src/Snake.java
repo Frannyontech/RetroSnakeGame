@@ -64,6 +64,14 @@ public class Snake {
         this.body = body;
     }
 
+    public int getX() {
+        return body.get(0).x;
+    }
+
+    public int getY() {
+        return body.get(0).y;
+    }
+
     public void up(){
         move = "UP";
     }
