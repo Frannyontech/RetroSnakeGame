@@ -27,6 +27,17 @@ public class Graphics extends JPanel implements ActionListener {
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
+        //paint background
+        g2d.setColor(Color.black);
+        g2d.fillRect(0, 0, Game.width * Game.dimensions, Game.height * Game.dimensions);
+        //paint food
+        g2d.setColor(Color.red);
+        g2d.fillRect(f.getX() * Game.dimensions, f.getY() * Game.dimensions, Game.dimensions, Game.dimensions);
+
+        g2d.setColor(Color.green);
+        for(Rectangle r : s.getBody()) {
+            g2d.fill(r);
+        }
     }
     @Override
     public void actionPerformed(ActionEvent e) {
