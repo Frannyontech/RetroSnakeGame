@@ -12,7 +12,7 @@ public class Graphics extends JPanel implements ActionListener {
     private Game game;
     public Graphics(Game g) {
         t.start();
-        state = "START";
+        state = "Start";
 
         game = g;
         s = g.getPlayer();
@@ -27,17 +27,28 @@ public class Graphics extends JPanel implements ActionListener {
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
-        //paint background
+
         g2d.setColor(Color.black);
         g2d.fillRect(0, 0, Game.width * Game.dimensions, Game.height * Game.dimensions);
-        //paint food
-        g2d.setColor(Color.red);
-        g2d.fillRect(f.getX() * Game.dimensions, f.getY() * Game.dimensions, Game.dimensions, Game.dimensions);
 
-        g2d.setColor(Color.green);
-        for(Rectangle r : s.getBody()) {
-            g2d.fill(r);
+        //paint background
+        if(state == "Start") {
+            g2d.setColor(Color.white);
+            g2d.drawString("Press Any Key", Game.width / 2 * Game.dimensions - 40, Game.height / 2 * Game.dimensions - 20);
+        } else if (state == "Running") {
+            //paint food
+            g2d.setColor(Color.red);
+            g2d.fillRect(f.getX() * Game.dimensions, f.getY() * Game.dimensions, Game.dimensions, Game.dimensions);
+
+            g2d.setColor(Color.green);
+            for(Rectangle r : s.getBody()) {
+                g2d.fill(r);
+            }
+        } else {
+            g2d.setColor(Color.white);
+            g2d.drawString("Your Score " + (s.getBody().size() - 3), Game.width / 2 * Game.dimensions - 40, Game.height / 2 * Game.dimensions - 20);
         }
+
     }
     @Override
     public void actionPerformed(ActionEvent e) {

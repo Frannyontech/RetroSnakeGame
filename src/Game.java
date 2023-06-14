@@ -15,15 +15,40 @@ public class Game
     public Game() {
         window = new JFrame();
 
+        player = new Snake();
+        food = new Food(player);
+        graphics = new Graphics(this);
+        window.add(graphics);
+
         window.setTitle("Snake");
         window.setSize(width * dimensions, height * dimensions);
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    public void start(){
+        graphics.state = "Running";
+    }
+
     public boolean check_wall_collision() {
         if(player.getX() < 0 || player.getX() >= width * dimensions || player.getY() < 0 || player.getY() >= height * dimensions ) {
             return true;
+        }
+        return false;
+    }
+
+    public boolean check_food_collision() {
+        if(player.getX() == food.getX() * dimensions && player.getY() == food.getY() * dimensions) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean check_self_collision() {
+        for(int i = 1; i < player.getBody().size(); i++) {
+            if(player.getX() == player.getBody().get(i).x && player.getY() == player.getBody().get(i).y) {
+                return true;
+            }
         }
         return false;
     }
