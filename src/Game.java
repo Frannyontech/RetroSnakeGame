@@ -30,21 +30,33 @@ public class Game
         graphics.state = "Running";
     }
 
-    public boolean check_wall_collision() {
+    public void update(){
+        if(graphics.state == "Running") {
+            if(check_food_collision()) {
+                player.grow();
+                food.random_spawn(player);
+            } else if(check_wall_collision() || check_self_collision()) {
+                graphics.state = "End";
+            } else {
+                player.move();
+            }
+        }
+    }
+    private boolean check_wall_collision() {
         if(player.getX() < 0 || player.getX() >= width * dimensions || player.getY() < 0 || player.getY() >= height * dimensions ) {
             return true;
         }
         return false;
     }
 
-    public boolean check_food_collision() {
+    private boolean check_food_collision() {
         if(player.getX() == food.getX() * dimensions && player.getY() == food.getY() * dimensions) {
             return true;
         }
         return false;
     }
 
-    public boolean check_self_collision() {
+    private boolean check_self_collision() {
         for(int i = 1; i < player.getBody().size(); i++) {
             if(player.getX() == player.getBody().get(i).x && player.getY() == player.getBody().get(i).y) {
                 return true;
