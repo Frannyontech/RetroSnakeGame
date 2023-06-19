@@ -20,23 +20,23 @@ public class Game
         graphics = new Graphics(this);
         window.add(graphics);
 
-        window.setTitle("Snake");
-        window.setSize(width * dimensions, height * dimensions);
+        window.setTitle("SNAKE");
+        window.setSize(width * dimensions + 2, height * dimensions + 4);
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void start(){
-        graphics.state = "Running";
+        graphics.state = "RUNNING";
     }
 
     public void update(){
-        if(graphics.state == "Running") {
+        if(graphics.state == "RUNNING") {
             if(check_food_collision()) {
                 player.grow();
                 food.random_spawn(player);
             } else if(check_wall_collision() || check_self_collision()) {
-                graphics.state = "End";
+                graphics.state = "END";
             } else {
                 player.move();
             }
@@ -71,17 +71,20 @@ public class Game
     @Override
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
-        if(keyCode == KeyEvent.VK_W) {
-            player.up();
-        }
-        else if(keyCode == KeyEvent.VK_S) {
-            player.down();
-        }
-        else if(keyCode == KeyEvent.VK_A) {
-            player.left();
-        }
-        else {
-            player.right();
+        if(graphics.state == "RUNNING") {
+            if(keyCode == KeyEvent.VK_W) {
+                player.up();
+            }
+            else if(keyCode == KeyEvent.VK_S) {
+                player.down();
+            }
+            else if(keyCode == KeyEvent.VK_A) {
+                player.left();
+            } else {
+                player.right();
+            }
+        } else {
+            this.start();
         }
     }
     @Override

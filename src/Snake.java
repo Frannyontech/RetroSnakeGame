@@ -16,22 +16,26 @@ public class Snake {
         body.add(temp);
 
         temp = new Rectangle(d, d);
-        temp.setLocation((w / 2 - 2) * d, (h / 2 - 2) * d);
+        temp.setLocation((w / 2 - 1) * d, (h / 2) * d);
         body.add(temp);
 
-        move = "Nothing";
+        temp = new Rectangle(d, d);
+        temp.setLocation((w / 2 - 2) * d, (h / 2) * d);
+        body.add(temp);
+
+        move = "NOTHING";
 
     }
     public void move(){
-        if (move != "Nothing") {
+        if (move != "NOTHING") {
             Rectangle first = body.get(0);
             Rectangle temp = new Rectangle(Game.dimensions, Game.dimensions);
             
-            if(move == "Up") {
+            if(move == "UP") {
                 temp.setLocation(first.x, first.y - Game.dimensions);
-            } else if(move == "Down") {
+            } else if(move == "DOWN") {
                 temp.setLocation(first.x, first.y + Game.dimensions);
-            } else if(move == "Left") {
+            } else if(move == "LEFT") {
                 temp.setLocation(first.x - Game.dimensions, first.y);
             } else {
                 temp.setLocation(first.x + Game.dimensions, first.y);
@@ -45,11 +49,11 @@ public class Snake {
         Rectangle first = body.get(0);
         Rectangle temp = new Rectangle(Game.dimensions, Game.dimensions);
 
-        if(move == "Up") {
+        if(move == "UP") {
             temp.setLocation(first.x, first.y - Game.dimensions);
-        } else if(move == "Down") {
+        } else if(move == "DOWN") {
             temp.setLocation(first.x, first.y + Game.dimensions);
-        } else if(move == "Left") {
+        } else if(move == "LEFT") {
             temp.setLocation(first.x - Game.dimensions, first.y);
         } else {
             temp.setLocation(first.x + Game.dimensions, first.y);
@@ -72,16 +76,24 @@ public class Snake {
         return body.get(0).y;
     }
 
-    public void up(){
-        move = "UP";
+    public void up() {
+        if(move != "DOWN") {
+            move = "UP";
+        }
     }
-    public void down(){
-        move = "DOWN";
+    public void down() {
+        if(move != "UP") {
+            move = "DOWN";
+        }
     }
-    public void left(){
-        move = "LEFT";
+    public void left() {
+        if(move != "RIGHT") {
+            move = "LEFT";
+        }
     }
-    public void right(){
-        move = "RIGHT";
+    public void right() {
+        if(move != "LEFT") {
+            move = "RIGHT";
+        }
     }
 }
