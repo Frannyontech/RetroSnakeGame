@@ -15,10 +15,54 @@ public class Game
     public Game() {
         window = new JFrame();
 
-        window.setTitle("Snake");
-        window.setSize(width * dimensions, height * dimensions);
+        player = new Snake();
+        food = new Food(player);
+        graphics = new Graphics(this);
+        window.add(graphics);
+
+        window.setTitle("SNAKE");
+        window.setSize(width * dimensions + 2, height * dimensions + 4);
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void start(){
+        graphics.state = "RUNNING";
+    }
+
+    public void update(){
+        if(graphics.state == "RUNNING") {
+            if(check_food_collision()) {
+                player.grow();
+                food.random_spawn(player);
+            } else if(check_wall_collision() || check_self_collision()) {
+                graphics.state = "END";
+            } else {
+                player.move();
+            }
+        }
+    }
+    private boolean check_wall_collision() {
+        if(player.getX() < 0 || player.getX() >= width * dimensions || player.getY() < 0 || player.getY() >= height * dimensions ) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean check_food_collision() {
+        if(player.getX() == food.getX() * dimensions && player.getY() == food.getY() * dimensions) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean check_self_collision() {
+        for(int i = 1; i < player.getBody().size(); i++) {
+            if(player.getX() == player.getBody().get(i).x && player.getY() == player.getBody().get(i).y) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -27,17 +71,20 @@ public class Game
     @Override
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
-        if(keyCode == KeyEvent.VK_W) {
-            player.up();
-        }
-        else if(keyCode == KeyEvent.VK_S) {
-            player.down();
-        }
-        else if(keyCode == KeyEvent.VK_A) {
-            player.left();
-        }
-        else {
-            player.right();
+        if(graphics.state == "RUNNING") {
+            if(keyCode == KeyEvent.VK_W) {
+                player.up();
+            }
+            else if(keyCode == KeyEvent.VK_S) {
+                player.down();
+            }
+            else if(keyCode == KeyEvent.VK_A) {
+                player.left();
+            } else {
+                player.right();
+            }
+        } else {
+            this.start();
         }
     }
     @Override
