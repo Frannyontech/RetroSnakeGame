@@ -1,4 +1,4 @@
-# RetroSnakeGame
+# Retro Snake Game
 
 Usage
 Use the letter keys A-S-D-W (up, down, left, right) to control the snake's movement.
