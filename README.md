@@ -14,3 +14,8 @@ You'll start each game with one green and one red square. The green square is yo
 * Classic Snake gameplay with simple controls.
 * Random placement of food items for variety.
 * Game over screen displaying the player's score.
+
+---
+## How Does It Look Like
+
+![snake_screenshot](https://github.com/Frannyontech/RetroSnakeGame/assets/75314109/8e22404d-8f45-4cf1-ab6a-2a06b20f8d67)
